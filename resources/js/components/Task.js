@@ -1,6 +1,6 @@
 import React  , { Component  }from 'react';
 import ReactDOM from 'react-dom';
-import  { Table , Button , Modal , ModalHeader, ModalBody, ModalFooter  , Input , FormGroup , Label} from "reactstrap";
+import  { Table , Button , Modal , ButtonToggle ,ModalHeader, ModalBody, ModalFooter  , Input , FormGroup , Label} from "reactstrap";
 import  axios from  'axios';
 
 export default class Task extends Component {
@@ -18,7 +18,13 @@ export default class Task extends Component {
                 id:"",
                 name:"",
                 description:""
-            }
+            },
+            detailTaskData: {
+                id: "",
+                name: "",
+                description: ""
+            },
+            detailTaskModal: false,
         };
     }
 
@@ -52,7 +58,6 @@ export default class Task extends Component {
 
      }
 
-
      editTask(id , name , description)
      {
          this.setState({
@@ -72,6 +77,39 @@ export default class Task extends Component {
           axios.delete('http://127.0.0.1:8000/api/task/'+id).then((response) => {
               this.loadTask();
           })
+
+
+    }
+
+    isFinishedTask(id , status)
+    {
+
+        axios.post('http://127.0.0.1:8000/api/task/toogleTask' ,
+            { id , status})
+            .then((response) => {
+
+               this.loadTask();
+
+        })
+
+         //console.log(status)
+
+    }
+
+
+    detailTask(id , name , description)
+    {
+
+        this.setState({
+
+            detailTaskData: {
+                id ,
+                name,
+                description
+
+            },
+            detailTaskModal: !this.state.detailTaskModal
+        })
 
 
     }
@@ -112,6 +150,16 @@ export default class Task extends Component {
         })
     }
 
+    toogledetailTaskModal() {
+
+          this.setState({
+
+              detailTaskModal : !this.state.detailTaskModal
+
+
+          })
+    }
+
 
     componentWillMount() {
 
@@ -136,7 +184,23 @@ export default class Task extends Component {
                          <Button
                              color="danger"
                              size="sm"
+                             className="mr-2"
                          onClick={this.deleteTask.bind(this , task.id)}>Delete</Button>
+
+                         <Button
+                             color="primary"
+                             size="sm"
+                             className="mr-2"
+                             onClick={this.detailTask.bind(this , task.id , task.name , task.description)}>details</Button>
+
+                         <ButtonToggle
+                             color="success"
+                             size="sm"
+                             onClick={ this.isFinishedTask.bind(this , task.id , task.is_finished)}
+                         >
+
+                             {  task.is_finished  ? 'terminé' : 'Terminé ?'}
+                         </ButtonToggle>
                      </td>
                  </tr>
                      )
@@ -207,6 +271,27 @@ export default class Task extends Component {
                     <ModalFooter>
                         <Button color="primary" onClick={this.updateTask.bind(this)}>Edit Task</Button>
                         <Button color="secondary" onClick={this.toogleEditTaskModal.bind(this)}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
+
+
+
+
+                <Modal isOpen={this.state.detailTaskModal} toggle={this.toogledetailTaskModal.bind(this)}>
+                    <ModalHeader toggle={this.toogledetailTaskModal.bind(this)}>Detail Task # { this.state.detailTaskData.id }</ModalHeader>
+                    <ModalBody>
+                        <FormGroup>
+                            <Label for="name">Name : { this.state.detailTaskData.name } </Label>
+
+                        </FormGroup>
+
+                        <FormGroup>
+                            <Label for="description">Description : { this.state.detailTaskData.description} </Label>
+
+                        </FormGroup>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="secondary" onClick={this.toogledetailTaskModal.bind(this)}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
 

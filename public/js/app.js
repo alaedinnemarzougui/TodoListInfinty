@@ -80387,7 +80387,13 @@ var Task = /*#__PURE__*/function (_Component) {
         id: "",
         name: "",
         description: ""
-      }
+      },
+      detailTaskData: {
+        id: "",
+        name: "",
+        description: ""
+      },
+      detailTaskModal: false
     };
     return _this;
   }
@@ -80445,9 +80451,33 @@ var Task = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
+    key: "isFinishedTask",
+    value: function isFinishedTask(id, status) {
+      var _this5 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('http://127.0.0.1:8000/api/task/toogleTask', {
+        id: id,
+        status: status
+      }).then(function (response) {
+        _this5.loadTask();
+      }); //console.log(status)
+    }
+  }, {
+    key: "detailTask",
+    value: function detailTask(id, name, description) {
+      this.setState({
+        detailTaskData: {
+          id: id,
+          name: name,
+          description: description
+        },
+        detailTaskModal: !this.state.detailTaskModal
+      });
+    }
+  }, {
     key: "updateTask",
     value: function updateTask() {
-      var _this5 = this;
+      var _this6 = this;
 
       var _this$state$editTaskD = this.state.editTaskData,
           taskId = _this$state$editTaskD.taskId,
@@ -80457,9 +80487,9 @@ var Task = /*#__PURE__*/function (_Component) {
         name: name,
         description: description
       }).then(function (response) {
-        _this5.loadTask();
+        _this6.loadTask();
 
-        _this5.setState({
+        _this6.setState({
           editTaskModal: false,
           editTaskData: {
             id: "",
@@ -80484,6 +80514,13 @@ var Task = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
+    key: "toogledetailTaskModal",
+    value: function toogledetailTaskModal() {
+      this.setState({
+        detailTaskModal: !this.state.detailTaskModal
+      });
+    }
+  }, {
     key: "componentWillMount",
     value: function componentWillMount() {
       this.loadTask();
@@ -80491,7 +80528,7 @@ var Task = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this6 = this;
+      var _this7 = this;
 
       var taskss = this.state.tasks.map(function (task) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
@@ -80502,12 +80539,22 @@ var Task = /*#__PURE__*/function (_Component) {
           color: "success",
           size: "sm",
           className: "mr-2",
-          onClick: _this6.editTask.bind(_this6, task.id, task.name, task.description)
+          onClick: _this7.editTask.bind(_this7, task.id, task.name, task.description)
         }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
           color: "danger",
           size: "sm",
-          onClick: _this6.deleteTask.bind(_this6, task.id)
-        }, "Delete")));
+          className: "mr-2",
+          onClick: _this7.deleteTask.bind(_this7, task.id)
+        }, "Delete"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+          color: "primary",
+          size: "sm",
+          className: "mr-2",
+          onClick: _this7.detailTask.bind(_this7, task.id, task.name, task.description)
+        }, "details"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["ButtonToggle"], {
+          color: "success",
+          size: "sm",
+          onClick: _this7.isFinishedTask.bind(_this7, task.id, task.is_finished)
+        }, task.is_finished ? 'terminé' : 'Terminé ?')));
       });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container mt-4"
@@ -80526,10 +80573,10 @@ var Task = /*#__PURE__*/function (_Component) {
         id: "name",
         value: this.state.newTaskData.name,
         onChange: function onChange(e) {
-          var newTaskData = _this6.state.newTaskData;
+          var newTaskData = _this7.state.newTaskData;
           newTaskData.name = e.target.value;
 
-          _this6.setState({
+          _this7.setState({
             newTaskData: newTaskData
           });
         }
@@ -80539,10 +80586,10 @@ var Task = /*#__PURE__*/function (_Component) {
         id: "description",
         value: this.state.newTaskData.description,
         onChange: function onChange(e) {
-          var newTaskData = _this6.state.newTaskData;
+          var newTaskData = _this7.state.newTaskData;
           newTaskData.description = e.target.value;
 
-          _this6.setState({
+          _this7.setState({
             newTaskData: newTaskData
           });
         }
@@ -80563,10 +80610,10 @@ var Task = /*#__PURE__*/function (_Component) {
         id: "name",
         value: this.state.editTaskData.name,
         onChange: function onChange(e) {
-          var editTaskData = _this6.state.editTaskData;
+          var editTaskData = _this7.state.editTaskData;
           editTaskData.name = e.target.value;
 
-          _this6.setState({
+          _this7.setState({
             editTaskData: editTaskData
           });
         }
@@ -80576,10 +80623,10 @@ var Task = /*#__PURE__*/function (_Component) {
         id: "description",
         value: this.state.editTaskData.description,
         onChange: function onChange(e) {
-          var editTaskData = _this6.state.editTaskData;
+          var editTaskData = _this7.state.editTaskData;
           editTaskData.description = e.target.value;
 
-          _this6.setState({
+          _this7.setState({
             editTaskData: editTaskData
           });
         }
@@ -80589,6 +80636,18 @@ var Task = /*#__PURE__*/function (_Component) {
       }, "Edit Task"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
         color: "secondary",
         onClick: this.toogleEditTaskModal.bind(this)
+      }, "Cancel"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["Modal"], {
+        isOpen: this.state.detailTaskModal,
+        toggle: this.toogledetailTaskModal.bind(this)
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["ModalHeader"], {
+        toggle: this.toogledetailTaskModal.bind(this)
+      }, "Detail Task # ", this.state.detailTaskData.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["ModalBody"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["Label"], {
+        "for": "name"
+      }, "Name : ", this.state.detailTaskData.name, " ")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["Label"], {
+        "for": "description"
+      }, "Description : ", this.state.detailTaskData.description, " "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["ModalFooter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+        color: "secondary",
+        onClick: this.toogledetailTaskModal.bind(this)
       }, "Cancel"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(reactstrap__WEBPACK_IMPORTED_MODULE_2__["Table"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "#"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Action"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, taskss)));
     }
   }]);
@@ -80619,8 +80678,8 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /opt/lampp/htdocs/TodoListInfinity/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /opt/lampp/htdocs/TodoListInfinity/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /usr/src/app/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /usr/src/app/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

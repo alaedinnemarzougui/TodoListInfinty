@@ -35,6 +35,23 @@ class TaskController extends Controller
 
     }
 
+
+    public  function  toogleTask(Request $request)
+
+    {
+
+          $task = Task::findOrFail($request->get('id'));
+
+           if(!$request->get('status'))
+           {
+               $task->update(['is_finished' => 1]) ;
+           }else {
+               $task->update(['is_finished' => 0]);
+           }
+           return $task;
+    }
+
+
     public function  delete($id)
     {
 
