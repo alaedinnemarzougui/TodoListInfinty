@@ -19,20 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bcfe7025-bfff-4a47-9d98-94bf72666a52" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TaskController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Task.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Task.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_25_160037_create_tasks_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_25_160037_create_tasks_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Task.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Task.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/db-data/ib_logfile0" beforeDir="false" afterPath="$PROJECT_DIR$/storage/db-data/ib_logfile0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/db-data/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/storage/db-data/ibdata1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/db-data/ibtmp1" beforeDir="false" afterPath="$PROJECT_DIR$/storage/db-data/ibtmp1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/db-data/mysql/innodb_index_stats.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/storage/db-data/mysql/innodb_index_stats.ibd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/db-data/mysql/innodb_table_stats.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/storage/db-data/mysql/innodb_table_stats.ibd" afterDir="false" />
-    </list>
+    <list default="true" id="bcfe7025-bfff-4a47-9d98-94bf72666a52" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -193,7 +180,7 @@
       <workItem from="1606329694587" duration="23382000" />
       <workItem from="1606418237978" duration="2182000" />
       <workItem from="1606465427858" duration="18570000" />
-      <workItem from="1606560683705" duration="11641000" />
+      <workItem from="1606560683705" duration="11983000" />
     </task>
     <servers />
   </component>

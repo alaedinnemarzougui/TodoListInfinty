@@ -80460,7 +80460,7 @@ var Task = /*#__PURE__*/function (_Component) {
         status: status
       }).then(function (response) {
         _this5.loadTask();
-      }); //console.log(status)
+      });
     }
   }, {
     key: "detailTask",

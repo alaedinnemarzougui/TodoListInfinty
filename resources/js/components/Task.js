@@ -92,7 +92,6 @@ export default class Task extends Component {
 
         })
 
-         //console.log(status)
 
     }
 
