@@ -1,9 +1,8 @@
 # docker-compose-ToDoList Application ReactJs-Laravel Framework
-simple docker-compose Application Todlisit  for Laravel,  frontend( React.js).
+simple docker-compose Application Todolisit  for Laravel,  frontend( React.js).
 
-this use prefer officeal last images.
 
-Linux, OSX amd Windows firiendly.
+Linux, OSX and Windows firiendly.
 
 ## Require
 
